@@ -1,0 +1,62 @@
+{
+    "AWSTemplateFormatVersion": "2010-09-09",
+    "Metadata": {
+        "AWS::CloudFormation::Designer": {
+            "0e2397cc-5fee-4711-a9d3-5a0aa3909400": {
+                "size": {
+                    "width": 60,
+                    "height": 60
+                },
+                "position": {
+                    "x": 338,
+                    "y": 167
+                },
+                "z": 0
+            }
+        }
+    },
+    "Resources": {
+        "EC2SG25I4I": {
+            "Type": "AWS::EC2::SecurityGroup",
+            "Properties": {
+                "GroupDescription": "Enable SSH access via port 22",
+                "SecurityGroupIngress": [
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 22,
+                        "ToPort": 22,
+                        "CidrIp": "0.0.0.0/0"
+                    },
+                    {
+                        "IpProtocol": "tcp",
+                        "FromPort": 80,
+                        "ToPort": 80,
+                        "CidrIp": "0.0.0.0/0"
+                    }
+                ],
+                "VpcId": "vpc-0a2aad4d8bc9bd48a"
+            },
+            "Metadata": {
+                "AWS::CloudFormation::Designer": {
+                    "id": "0e2397cc-5fee-4711-a9d3-5a0aa3909400"
+                }
+            }
+        }
+    },
+    "Outputs": {
+        "WebServerSecurityGroup": {
+            "Description": "The security group ID to use for public web servers",
+            "Value": {
+                "Fn::GetAtt": [
+                    "EC2SG25I4I",
+                    "GroupId"
+                ]
+            },
+            "Export": {
+                "Name": {
+                    "Fn::Sub": "${AWS::StackName}-SecurityGroupID"
+                }
+            }
+        }
+    }
+}
